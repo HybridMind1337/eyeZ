@@ -25,7 +25,7 @@ if ($checkServers->num_rows > 0) {
             $getIcon = 'border-left: 3px solid red;';
         }
 
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/assets/maps/' . $getType . '/' . $getMap . '.jpg')) {
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/eyez/assets/maps/' . $getType . '/' . $getMap . '.jpg')) {
             $getImage = "<img src='//$getHTTP/assets/maps/$getType/$getMap.jpg' class='card-img-top img-fluid' alt='$getMap' /> ";
         } else if ($getType == 'samp' || $getType === 'mta') {
             $getImage = "<img src='//$getHTTP/eyez/assets/maps/gta/bg.jpg' class='card-img-top img-fluid' alt='Bulgaria' /> ";

@@ -53,7 +53,7 @@ include("funcs.php");
             }
 
             if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/eyez/assets/maps/' . $getType . '/' . $getMap . '.jpg')) {
-                $getImage = "<img src='//$getHTTP/assets/maps/$getType/$getMap.jpg' width='25' height='18' alt='$getMap' /> ";
+                $getImage = "<img src='//$getHTTP/eyez/assets/maps/$getType/$getMap.jpg' width='25' height='18' alt='$getMap' /> ";
             } else if ($getType == 'samp' || $getType === 'mta') {
                 $getImage = "<img src='//$getHTTP/eyez/assets/maps/gta/bg.jpg' width='25' height='18' alt='Bulgaria' /> ";
             } else {

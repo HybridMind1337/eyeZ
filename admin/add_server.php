@@ -110,7 +110,7 @@ if (isset($_POST['add_server'])) {
                                 <option value="cs16">Counter-Strike 1.6</option>
                                 <option value="csgo">Counter-Strike Global Offensive</option>
                                 <option value="samp">San Andreas Multiplayer</option>
-                                <option value="mta">Multi Theft Auti</option>
+                                <option value="mta">Multi Theft Auto</option>
                                 <option value="minecraft">MineCraft</option>
                                 <option value="tf2">Team Fortress 2</option>
                                 <option value="teamspeak3">TeamSpeak 3</option>

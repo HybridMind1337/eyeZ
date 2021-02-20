@@ -1,5 +1,7 @@
 {
     "require": {
-        "austinb/gameq": "~3.0"
+        "austinb/gameq": "~3.0",
+        "ext-mysqli": "*",
+        "ext-iconv": "*"
     }
 }

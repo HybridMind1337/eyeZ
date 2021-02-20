@@ -13,15 +13,13 @@ $row = mysqli_fetch_assoc($findServ);
 
 $getName = $row['hostname'];
 $getIP = $row['ip'];
-$getPort = $row['port'];
 $getType = $row['type'];
 
 if (isset($_POST['edit_server'])) {
     $newIP = $_POST['ip'];
-    $newPort = $_POST['port'];
     $newType = $_POST['type'];
 
-    $change = mysqli_query($conn, "UPDATE eyez_servers SET ip='$newIP', port='$newPort', type='$newType' WHERE id='$id'");
+    $change = mysqli_query($conn, "UPDATE eyez_servers SET ip='$newIP', type='$newType' WHERE id='$id'");
     msg('control.php', 'success', '<i class="fas fa-check"></i> Сървъра е успешно променен');
 }
 mysqli_free_result($findServ);
@@ -63,22 +61,16 @@ mysqli_free_result($findServ);
         <main role="main">
             <div class="row">
                 <div class="col-md-12 blog-main">
-                    <h5 class="text-center"><span
-                                class="badge badge-pill badge-primary">Промяна на <?php echo $getName; ?></span></h5>
+                    <h5 class="text-center"><span class="badge badge-pill badge-primary">Промяна на <?php echo $getName; ?></span></h5>
                     <form method="post" action="">
                         <div class="form-group">
                             <label>IP адрес</label>
                             <input type="text" name="ip" value="<?php echo $getIP; ?>" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Порт</label>
-                            <input type="text" name="port" value="<?php echo $getPort; ?>" class="form-control">
-                        </div>
-                        <div class="form-group">
                             <label>Тип</label>
                             <input type="text" name="type" value="<?php echo $getType; ?>" class="form-control">
-                            <small class="form-text text-muted">Възможни типове: cs16, csgo, samp, mta, minecraft, tf2,
-                                teamspeak3</small>
+                            <small class="form-text text-muted">Възможни типове: cs16, csgo, samp, mta, minecraft, tf2, teamspeak3</small>
                         </div>
                         <button type="submit" name="edit_server" class="btn btn-primary">Промени</button>
                     </form>

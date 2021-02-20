@@ -48,8 +48,7 @@ if ($_SESSION['admin'] == 0) {
                 <b>eyeZ</b> е изработка на екипа от WEBOcean.INFO, тя представлява малък и пъргав уеб базиран скрипт,
                 който работи с GameQ от Austiq.
             </p>
-            <p class="lead mb-0"><a href="https://webocean.info" class="text-white font-weight-bold">При проблеми,
-                    посетете нашия уеб сайт</a></p>
+            <p class="lead mb-0"><a href="https://webocean.info" class="text-white font-weight-bold">При проблеми, посетете нашия уеб сайт</a></p>
         </div>
     </div>
     <main role="main">
@@ -74,7 +73,6 @@ if ($_SESSION['admin'] == 0) {
                         while ($row = mysqli_fetch_assoc($checkServers)) {
                             $getID = $row['id'];
                             $getIP = $row['ip'];
-                            $getPort = $row['port'];
                             $getPlayers = $row['players'];
                             $getMaxPlayers = $row['maxplayers'];
                             $getType = $row['type'];
@@ -84,14 +82,14 @@ if ($_SESSION['admin'] == 0) {
 
                             if ($getStatus == '1') {
                                 $getIcon = '<span class="badge badge-pill badge-success"><i class="fas fa-check"></i></span>';
-                            } else if ($getStatus == '0') {
+                            } else {
                                 $getIcon = '<span class="badge badge-pill badge-danger"><i class="fas fa-times"></i></span>';
                             }
 
                             echo "<tr>
                                     <th scope='row'><img src='../assets/img/$getType.png' alt='Тип на играта' /> $getIcon</th>
                                     <td>$getName</td>
-                                    <td>$getIP:$getPort</td>
+                                    <td>$getIP</td>
                                     <td>$getPlayers / $getMaxPlayers</td>
                                     <td>$getMap</td>
                                     <td><div class='btn-group btn-group-toggle' data-toggle='buttons'>
@@ -113,13 +111,13 @@ if ($_SESSION['admin'] == 0) {
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    $('.delete_server').click(function() {
-        if(confirm('Сигурен ли сте, че искате да изтриете сървъра?')) {
+    $('.delete_server').click(function () {
+        if (confirm('Сигурен ли сте, че искате да изтриете сървъра?')) {
             $.ajax({
-                url:        $(this).attr('href'),
-                type:       'GET',
-                dataType:   'json',
-                success:    function(data) {
+                url: $(this).attr('href'),
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
                     alert(data['info']);
                     $('.ff-' + data['id']).remove();
                 }

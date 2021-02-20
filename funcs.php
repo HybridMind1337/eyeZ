@@ -1,5 +1,12 @@
 <?php
-// Функция за съкращения
+/**
+ * @param $str
+ * @param int $limit
+ * @param false $bekind
+ * @param null $maxkind
+ * @param null $end
+ * @return false|mixed|string
+ */
 function truncate_chars($str, $limit = 15, $bekind = false, $maxkind = NULL, $end = NULL)
 {
     if (empty($str) || gettype($str) != 'string') {
@@ -37,6 +44,11 @@ function truncate_chars($str, $limit = 15, $bekind = false, $maxkind = NULL, $en
     }
 }
 
+/**
+ * @param null $location
+ * @param $alert
+ * @param $message
+ */
 function msg($location = null, $alert, $message)
 {
 
@@ -64,6 +76,9 @@ function showMessage()
 }
 
 
+/**
+ * @param $name
+ */
 function deleteSession($name)
 {
     if (isset($_SESSION[$name])) {
@@ -71,17 +86,31 @@ function deleteSession($name)
     }
 }
 
+/**
+ * @param $ip
+ * @return bool
+ */
+function checkIP($ip): bool
+{
+    if (!filter_var($ip, FILTER_VALIDATE_IP, ['flags' => FILTER_FLAG_IPV4,]) && $ip === gethostbyname($ip)) {
+        return true;
+    }
+}
+
 include("vendor/autoload.php");
+/**
+ * @throws Exception
+ */
 function eyez_updater()
 {
     global $conn, $GameQ, $eyez_update;
     $getServers = mysqli_query($conn, "SELECT * FROM eyez_servers");
     while ($row = mysqli_fetch_assoc($getServers)) {
+
         $getID = $row['id'];
         $getLastUP = $row['last_update'];
         $getType = $row['type'];
         $getIP = $row['ip'];
-        $getPort = $row['port'];
 
         if ($getLastUP < time()) {
             $nextUP = time() + $eyez_update;
@@ -89,16 +118,16 @@ function eyez_updater()
             $GameQ = new \GameQ\GameQ();
             if ($getType == 'teamspeak3') {
                 $GameQ->addServer([
-                    'type' => "$getType",
-                    'host' => "$getIP:$getPort",
+                    'type' => $getType,
+                    'host' => $getIP,
                     'options' => [
                         'query_port' => 10011,
                     ],
                 ]);
             } else {
                 $GameQ->addServer([
-                    'type' => "$getType",
-                    'host' => "$getIP:$getPort",
+                    'type' => $getType,
+                    'host' => $getIP,
                 ]);
             }
 
@@ -109,7 +138,6 @@ function eyez_updater()
             foreach ($results as $get) {
 
                 $getName = $get['gq_hostname'];
-                $host_cron = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $getName);
                 $getStatus = $get['gq_online'];
                 $getMaxPlayers = $get['gq_maxplayers'];
                 $getPlayers = $get['gq_numplayers'];
@@ -122,8 +150,8 @@ function eyez_updater()
                     $getMap = $get['gq_mapname'];
                 }
 
-                if ($host_cron != null) {
-                    $update = mysqli_query($conn, "UPDATE eyez_servers SET status='1',hostname='$host_cron',map='$getMap', players='$getPlayers',maxplayers='$getMaxPlayers',last_update='$nextUP' WHERE id='$getID'");
+                if ($getStatus == 1) {
+                    $update = mysqli_query($conn, "UPDATE eyez_servers SET status='1',hostname='$getName',map='$getMap', players='$getPlayers',maxplayers='$getMaxPlayers',last_update='$nextUP' WHERE id='$getID'");
                 } else {
                     $update = mysqli_query($conn, "UPDATE eyez_servers SET status='0', players='0',maxplayers='0',last_update='$nextUP' WHERE id='$getID'");
                 }

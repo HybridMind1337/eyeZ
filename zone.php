@@ -9,7 +9,6 @@ $checkServers = mysqli_query($conn, "SELECT * FROM eyez_servers ORDER BY RAND() 
 if ($checkServers->num_rows > 0) {
     while ($row = mysqli_fetch_assoc($checkServers)) {
         $getIP = $row['ip'];
-        $getPort = $row['port'];
         $getPlayers = $row['players'];
         $getMaxPlayers = $row['maxplayers'];
         $getType = $row['type'];
@@ -25,7 +24,7 @@ if ($checkServers->num_rows > 0) {
             $getIcon = 'border-left: 3px solid red;';
         }
 
-            if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/eyez/assets/maps/' . $getType . '/' . $getMap . '.jpg')) {
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/eyez/assets/maps/' . $getType . '/' . $getMap . '.jpg')) {
             $getImage = "<img src='//$getHTTP/eyez/assets/maps/$getType/$getMap.jpg' class='card-img-top img-fluid' alt='$getMap' /> ";
         } else if ($getType == 'samp' || $getType === 'mta') {
             $getImage = "<img src='//$getHTTP/eyez/assets/maps/gta/bg.jpg' class='card-img-top img-fluid' alt='Bulgaria' /> ";
@@ -38,7 +37,7 @@ if ($checkServers->num_rows > 0) {
                   <div class='card-body'>
                     <b class='card-title'>$getName</b>
                     <p class='card-text'>
-                    IP: <span  onclick='prompt(\"$getName:\",\"$getIP:$getPort\"); return false;'>$getIP:$getPort</span><br />
+                    IP: <span  onclick='prompt(\"$getName:\",\"$getIP\"); return false;'>$getIP</span><br />
                     Карта: $getMap<br />
                     Играчи: $getPlayers/$getMaxPlayers
                     </p>
